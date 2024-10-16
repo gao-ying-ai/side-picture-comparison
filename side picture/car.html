@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .compare {
+            display: grid;
+           
+        }
+      
+        /* 选中compare里的所有元素 */
+        .compare * {
+            width: 800px;
+            /* 元素被放置在网格的第一个区域（即行1和列1） */
+            grid-area: 1/1;
+
+        }
+        .compare section {
+            display: grid;
+            place-content: center;
+        }
+        .before {
+            /* 裁剪方式创建元素可显示区域，区域内显示，区域外隐藏 */
+            /* 右边距是元素宽度的 100% 减去一个自定义属性 --pos 的值,默认为 50% */
+            clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0) ;
+        }
+        .after{
+            clip-path:inset(0 0 0 var(--pos,50%));
+        }
+        #range {
+            z-index: 1;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* 定义滑块的样式 */
+        #range::-webkit-slider-thumb{
+            appearance: none;
+            width: 5px;
+            height: 1500px;
+            
+            background-color: #f0f4ec;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="compare">
+        <section class="before">
+            <img src="image/01.png" alt="">
+        </section>
+        <section class="after">
+            <img src="image/02.png" alt="">
+        </section>
+        <input type="range" id="range">
+    </div>
+
+</body>
+<script>
+    const range = document.querySelector('input');
+    range.oninput=function(){
+        document.body.style.setProperty('--pos',range.value + '%')
+    }
+
+</script>
+</html>
